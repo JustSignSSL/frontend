@@ -1,0 +1,8 @@
+{
+    "CAName": {
+        "DV": ["Some CAName"],
+        "OV": ["Some CAName"],
+        "EV": ["Some CAName"]
+    },
+    "backend": "http://localhost:3000"
+}

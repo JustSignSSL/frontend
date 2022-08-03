@@ -1,0 +1,8 @@
+export default {
+    "CAName": {
+        "DV": ["Some CAName", "Some CAName"],
+        "OV": ["Some CAName"],
+        "EV": ["Some CAName", "Some CAName", "Some CAName"],
+    },
+    "backend": "http://localhost:3000"
+}
