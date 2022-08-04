@@ -17,7 +17,7 @@ import Main from './components/main.vue'
 }
 
 .nav {
-  width: 25%;
+  width: 20%;
 }
 
 .main {
