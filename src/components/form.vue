@@ -2,9 +2,9 @@
     <el-form :model="form" :rules="rules">
         <el-form-item label="认证级别" @change="validationLevelChange" class="fix-height">
             <el-radio-group v-model="form.validationLevel" class="ml-4">
-                <el-radio label="DV" size="large">DV</el-radio>
-                <el-radio label="OV" size="large">OV</el-radio>
-                <el-radio label="EV" size="large">EV</el-radio>
+                <el-radio :disabled="!isAvailableValidationLevel('DV')" label="DV" size="large">DV</el-radio>
+                <el-radio :disabled="!isAvailableValidationLevel('OV')" label="OV" size="large">OV</el-radio>
+                <el-radio :disabled="!isAvailableValidationLevel('EV')" label="EV" size="large">EV</el-radio>
             </el-radio-group>
         </el-form-item>
         <el-form-item label="Common Name" prop="commonName">
@@ -168,6 +168,8 @@ const submit = async () => {
     const picked = Object.assign({}, pick(data, getInfoMap(form.validationLevel as CAType)))
     fetch(picked)
 }
+
+const isAvailableValidationLevel = (type: CAType) => CAName(type).length > 0
 </script>
 
 <style>
