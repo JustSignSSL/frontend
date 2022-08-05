@@ -94,7 +94,7 @@ const form = reactive({
     jurisdictionCountryName: 'CN',
     validityPeriod: 90,
     signatureHashingAlgorithm: 'SHA256',
-    CAName: 'Youngdo Basic Site CA - R3',
+    CAName: '',
     altName: computed(() => {
         if (altNamePlain.value.split("\n")[0] === "") return []
         return altNamePlain.value.split("\n")
@@ -144,6 +144,8 @@ const isDV = computed(() => form.validationLevel === "DV")
 const isEV = computed(() => form.validationLevel === "EV")
 
 const CANameList = computed(() => CAName(form.validationLevel as CAType))
+
+form.CAName = form.validationLevel[0]
 
 const validationLevelChange = () => {
     // 认证级别改变后的事件
