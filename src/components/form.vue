@@ -145,7 +145,7 @@ const isEV = computed(() => form.validationLevel === "EV")
 
 const CANameList = computed(() => CAName(form.validationLevel as CAType))
 
-form.CAName = form.validationLevel[0]
+form.CAName = CAName(form.validationLevel as CAType)[0]
 
 const validationLevelChange = () => {
     // 认证级别改变后的事件
