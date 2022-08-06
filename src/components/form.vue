@@ -37,16 +37,22 @@
                 <el-option v-for="item in businessCategory" :key="item" :label="item" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item v-if="isEV" label="司法管辖城市" prop="jurisdictionLocalityName">
-            <el-input v-model="form.jurisdictionLocalityName" placeholder="请在此输入" />
-        </el-form-item>
-        <el-form-item v-if="isEV" label="司法管辖州省" prop="jurisdictionStateOrProvinceName">
-            <el-input v-model="form.jurisdictionStateOrProvinceName" placeholder="请在此输入" />
-        </el-form-item>
         <el-form-item v-if="isEV" label="司法管辖国家">
             <el-select v-model="form.jurisdictionCountryName" style="width: 100%" class="m-2" placeholder="Select">
                 <el-option v-for="item in ISO3166" :key="item" :label="item" :value="item" />
             </el-select>
+        </el-form-item>
+        <el-form-item v-if="isEV" label="司法管辖州省" prop="jurisdictionStateOrProvinceName">
+            <el-input v-model="form.jurisdictionStateOrProvinceName" placeholder="请在此输入" />
+        </el-form-item>
+        <el-form-item v-if="isEV" label="司法管辖城市" prop="jurisdictionLocalityName">
+            <el-input v-model="form.jurisdictionLocalityName" placeholder="请在此输入" />
+        </el-form-item>
+        <el-form-item v-if="isEV" label="邮政编码" prop="postalCode">
+            <el-input v-model="form.postalCode" placeholder="请在此输入" />
+        </el-form-item>
+        <el-form-item v-if="isEV" label="街道" prop="streetAddress">
+            <el-input v-model="form.streetAddress" placeholder="请在此输入" />
         </el-form-item>
         <el-form-item label="有效期">
             <el-select v-model="form.validityPeriod" style="width: 100%" class="m-2" placeholder="Select">
@@ -98,7 +104,9 @@ const form = reactive({
     altName: computed(() => {
         if (altNamePlain.value.split("\n")[0] === "") return []
         return altNamePlain.value.split("\n")
-    })
+    }),
+    postalCode: '',
+    streetAddress: ''
 })
 
 const validateCommonName = (value: string, callback: any) => {
@@ -129,15 +137,17 @@ const rules = reactive<FormRules>({
     stateOrProvinceName: [required('州省'), shortText],
     localityName: [required('城市'), shortText],
     organizationName: [required('组织'), shortText],
-    jurisdictionLocalityName: [required('司法管辖城市'), shortText],
-    jurisdictionStateOrProvinceName: [required('司法管辖州省'), shortText],
+    jurisdictionLocalityName: [shortText],
+    jurisdictionStateOrProvinceName: [shortText],
     serialNumber: [
         required('序列号'), shortText,
         { validator: validateSerialNumber, trigger: 'blur' }
     ],
     altName: [
         { validator: validateDomain, trigger: 'blur' }
-    ]
+    ],
+    postalCode: [shortText],
+    streetAddress: [shortText],
 })
 
 const isDV = computed(() => form.validationLevel === "DV")
@@ -160,7 +170,8 @@ let infoMap = {
         'countryName', 'stateOrProvinceName', 'localityName', 'organizationName'],
     "EV": ['validationLevel', 'commonName', 'CAName', 'validityPeriod', 'signatureHashingAlgorithm', 'altName',
         'countryName', 'stateOrProvinceName', 'localityName', 'organizationName',
-        'serialNumber', 'businessCategory', 'jurisdictionLocalityName', 'jurisdictionStateOrProvinceName', 'jurisdictionCountryName'],
+        'serialNumber', 'businessCategory', 'jurisdictionLocalityName', 'jurisdictionStateOrProvinceName', 
+        'jurisdictionCountryName', 'postalCode', 'streetAddress'],
 }
 
 const submit = async () => {
