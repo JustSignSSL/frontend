@@ -1,7 +1,7 @@
 import config from "../../config.json"
 import { useMainStore } from '../store/main'
 import { ElMessage } from 'element-plus'
-
+import { t } from './i18n'
 
 export default async (data: any) => {
     let store = useMainStore()
@@ -16,7 +16,7 @@ export default async (data: any) => {
     if (res.ok) {
         const data = await res.json()
         ElMessage({
-            message: "获取成功",
+            message: t('fetchSuccess'),
             type: "success"
         })
         store.isLoading = false
@@ -27,12 +27,12 @@ export default async (data: any) => {
         store.isLoading = false
         if (res.status === 400) {
             ElMessage({
-                message: "参数错误",
+                message: t('paramIncorrect'),
                 type: "warning"
             })
         } else if (res.status === 500) {
             ElMessage({
-                message: "服务端错误",
+                message: t('serverError'),
                 type: "error"
             })
         }

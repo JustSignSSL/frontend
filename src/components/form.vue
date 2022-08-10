@@ -1,6 +1,6 @@
 <template>
     <el-form :model="form" :rules="rules">
-        <el-form-item label="认证级别" @change="validationLevelChange" class="fix-height">
+        <el-form-item :label="$t('validationLevel')" @change="validationLevelChange" class="fix-height">
             <el-radio-group v-model="form.validationLevel" class="ml-4">
                 <el-radio :disabled="!isAvailableValidationLevel('DV')" label="DV" size="large">DV</el-radio>
                 <el-radio :disabled="!isAvailableValidationLevel('OV')" label="OV" size="large">OV</el-radio>
@@ -8,67 +8,67 @@
             </el-radio-group>
         </el-form-item>
         <el-form-item label="Common Name" prop="commonName">
-            <el-input v-model="form.commonName" placeholder="请在此输入" />
+            <el-input v-model="form.commonName" />
         </el-form-item>
-        <el-form-item label="CA 名称" prop="CAName">
+        <el-form-item :label="$t('CAName')" prop="CAName">
             <el-select v-model="form.CAName" style="width: 100%" class="m-2" placeholder="Select">
                 <el-option v-for="item in CANameList" :key="item" :label="item" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item v-if="!isDV" label="国家">
+        <el-form-item v-if="!isDV" :label="$t('countryName')">
             <el-select v-model="form.countryName" style="width: 100%" class="m-2" placeholder="Select">
                 <el-option v-for="item in ISO3166" :key="item" :label="item" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item v-if="!isDV" label="州省" prop="stateOrProvinceName">
-            <el-input v-model="form.stateOrProvinceName" placeholder="请在此输入" />
+        <el-form-item v-if="!isDV" :label="$t('stateOrProvinceName')" prop="stateOrProvinceName">
+            <el-input v-model="form.stateOrProvinceName" />
         </el-form-item>
-        <el-form-item v-if="!isDV" label="城市" prop="localityName">
-            <el-input v-model="form.localityName" placeholder="请在此输入" />
+        <el-form-item v-if="!isDV" :label="$t('localityName')" prop="localityName">
+            <el-input v-model="form.localityName" />
         </el-form-item>
-        <el-form-item v-if="!isDV" label="组织名称" prop="organizationName">
-            <el-input v-model="form.organizationName" placeholder="请在此输入" />
+        <el-form-item v-if="!isDV" :label="$t('organizationName')" prop="organizationName">
+            <el-input v-model="form.organizationName" />
         </el-form-item>
-        <el-form-item v-if="isEV" label="序列号" prop="serialNumber">
-            <el-input v-model="form.serialNumber" placeholder="请在此输入" />
+        <el-form-item v-if="isEV" :label="$t('serialNumber')" prop="serialNumber">
+            <el-input v-model="form.serialNumber" />
         </el-form-item>
-        <el-form-item v-if="isEV" label="商业性质">
+        <el-form-item v-if="isEV" :label="$t('businessCategory')">
             <el-select v-model="form.businessCategory" style="width: 100%" class="m-2" placeholder="Select">
                 <el-option v-for="item in businessCategory" :key="item" :label="item" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item v-if="isEV" label="司法管辖国家">
+        <el-form-item v-if="isEV" :label="$t('jurisdictionCountryName')">
             <el-select v-model="form.jurisdictionCountryName" style="width: 100%" class="m-2" placeholder="Select">
                 <el-option v-for="item in ISO3166" :key="item" :label="item" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item v-if="isEV" label="司法管辖州省" prop="jurisdictionStateOrProvinceName">
-            <el-input v-model="form.jurisdictionStateOrProvinceName" placeholder="请在此输入" />
+        <el-form-item v-if="isEV" :label="$t('jurisdictionStateOrProvinceName')" prop="jurisdictionStateOrProvinceName">
+            <el-input v-model="form.jurisdictionStateOrProvinceName" />
         </el-form-item>
-        <el-form-item v-if="isEV" label="司法管辖城市" prop="jurisdictionLocalityName">
-            <el-input v-model="form.jurisdictionLocalityName" placeholder="请在此输入" />
+        <el-form-item v-if="isEV" :label="$t('jurisdictionLocalityName')" prop="jurisdictionLocalityName">
+            <el-input v-model="form.jurisdictionLocalityName" />
         </el-form-item>
-        <el-form-item v-if="isEV" label="邮政编码" prop="postalCode">
-            <el-input v-model="form.postalCode" placeholder="请在此输入" />
+        <el-form-item v-if="isEV" :label="$t('postalCode')" prop="postalCode">
+            <el-input v-model="form.postalCode" />
         </el-form-item>
-        <el-form-item v-if="isEV" label="街道" prop="streetAddress">
-            <el-input v-model="form.streetAddress" placeholder="请在此输入" />
+        <el-form-item v-if="isEV" :label="$t('streetAddress')" prop="streetAddress">
+            <el-input v-model="form.streetAddress" />
         </el-form-item>
-        <el-form-item label="有效期">
+        <el-form-item :label="$t('validityPeriod')">
             <el-select v-model="form.validityPeriod" style="width: 100%" class="m-2" placeholder="Select">
-                <el-option v-for="item in validityPeriod" :key="item" :label="item + ' 天'" :value="item" />
+                <el-option v-for="item in validityPeriod" :key="item" :label="`${item} ${$t('day')}`" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item label="签名哈希算法">
+        <el-form-item :label="$t('signatureHashingAlgorithm')">
             <el-select v-model="form.signatureHashingAlgorithm" style="width: 100%" class="m-2" placeholder="Select">
                 <el-option v-for="item in signatureHashingAlgorithm" :key="item" :label="item" :value="item" />
             </el-select>
         </el-form-item>
-        <el-form-item label="扩展名称" prop="altName">
-            <el-input v-model="altNamePlain" :rows="2" type="textarea" placeholder="请在此输入" />
+        <el-form-item :label="$t('altName')" prop="altName">
+            <el-input v-model="altNamePlain" :rows="2" type="textarea" />
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submit">生成</el-button>
+            <el-button type="primary" @click="submit">{{ $t('generate') }}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -83,6 +83,7 @@ import { shortText, required, validateSerialNumber } from '../util/validate'
 import { pick } from 'lodash';
 import fetch from '../util/fetch';
 import joi from 'joi'
+import { t } from '../util/i18n'
 
 const altNamePlain = ref('')
 
@@ -116,7 +117,7 @@ const validateCommonName = (value: string, callback: any) => {
             regex(/^(?=^.{3,255}$)\*\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/))
     }
     const { error } = joi.object({ text: schema }).validate({ text: value })
-    if (error) callback("填写错误")
+    if (error) callback(t("incorrectInput"))
 }
 
 const validateDomain = (_rule: any, value: string | string[], callback: any) => {
@@ -134,13 +135,13 @@ const rules = reactive<FormRules>({
         required('Common Name '), shortText,
         { validator: validateDomain, trigger: 'blur' },
     ],
-    stateOrProvinceName: [required('州省'), shortText],
-    localityName: [required('城市'), shortText],
-    organizationName: [required('组织'), shortText],
+    stateOrProvinceName: [required(t('stateOrProvinceName')), shortText],
+    localityName: [required(t('localityName')), shortText],
+    organizationName: [required(t('organizationName')), shortText],
     jurisdictionLocalityName: [shortText],
     jurisdictionStateOrProvinceName: [shortText],
     serialNumber: [
-        required('序列号'), shortText,
+        required(t('serialNumber')), shortText,
         { validator: validateSerialNumber, trigger: 'blur' }
     ],
     altName: [
@@ -170,7 +171,7 @@ let infoMap = {
         'countryName', 'stateOrProvinceName', 'localityName', 'organizationName'],
     "EV": ['validationLevel', 'commonName', 'CAName', 'validityPeriod', 'signatureHashingAlgorithm', 'altName',
         'countryName', 'stateOrProvinceName', 'localityName', 'organizationName',
-        'serialNumber', 'businessCategory', 'jurisdictionLocalityName', 'jurisdictionStateOrProvinceName', 
+        'serialNumber', 'businessCategory', 'jurisdictionLocalityName', 'jurisdictionStateOrProvinceName',
         'jurisdictionCountryName', 'postalCode', 'streetAddress'],
 }
 
