@@ -67,7 +67,7 @@ const messages = {
 
 export const i18n = createI18n({
     legacy: false,
-    locale: navigator.language === "zh-CN" ? "zh-CN" : "en-US",
+    locale: navigator.language.startsWith("zh") ? "zh-CN" : "en-US",
     fallbackLocale: 'en-US',
     messages
 })
