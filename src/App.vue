@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import Nav from './components/nav.vue';
 import Main from './components/main.vue'
-import { useI18n as _ } from 'vue-i18n';
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+
 </script>
 
 <template>

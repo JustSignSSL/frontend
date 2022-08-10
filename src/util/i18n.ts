@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n'
 
 const messages = {
-    zh: {
+    "zh-CN": {
         "noData": "没有数据",
         "publicKey": "公钥",
         "privateKey": "私钥",
@@ -32,7 +32,7 @@ const messages = {
         "shortText": "字段大小必须在 3 到 50 之间",
         "longText": "字段大小必须在 3 到 200 之间",
     },
-    en: {
+    "en-US": {
         "noData": "No Data",
         "publicKey": "Public Key",
         "privateKey": "Private Key",
@@ -67,18 +67,13 @@ const messages = {
 
 export const i18n = createI18n({
     legacy: false,
-    locale: 'en',
-    fallbackLocale: 'zh',
+    locale: navigator.language === "zh-CN" ? "zh-CN" : "en-US",
+    fallbackLocale: 'en-US',
     messages
 })
 
 export const t = (query: string) => {
-    let lang = {
-        "en-US": "en",
-        "zh-CN": "zh",
-    }
-    // @ts-ignore
-    let currLang = lang[navigator.language] || "en"
+    let currLang = navigator.language in messages ? navigator.language : "en-US"
     // @ts-ignore
     return messages[currLang][query]
 }
