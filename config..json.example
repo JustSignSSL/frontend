@@ -4,5 +4,6 @@
         "OV": ["Some CAName"],
         "EV": ["Some CAName"]
     },
-    "backend": "http://localhost:3000"
+    "backend": "http://localhost:3000",
+    "footer": "<p>Powered by JustSignSSL</p>"
 }

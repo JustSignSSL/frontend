@@ -9,3 +9,5 @@ export const signatureHashingAlgorithm = ["SHA256", "SHA384", "SHA512"];
 export const CAName = (key: CAType) => config.CAName[key]
 
 export type CAType = "DV" | "OV" | "EV"
+
+export const footer = config.footer 

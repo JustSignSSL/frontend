@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Nav from './components/nav.vue';
 import Main from './components/main.vue'
+import { footer } from './util/define';
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import Main from './components/main.vue'
     <Nav class="nav"></Nav>
     <Main class="main"></Main>
   </div>
+  <div class="footer" v-if="footer" v-html="footer"></div>
 </template>
 
 <style scoped>
